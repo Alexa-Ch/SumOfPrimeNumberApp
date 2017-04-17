@@ -18,16 +18,26 @@ class TaskViewController: UIViewController {
     
     @IBOutlet weak var sumLabel: UILabel!
     
-    @IBOutlet weak var allPrimeNumbers: UILabel!
-    
+    @IBOutlet weak var allPrimeNumbers: UITextView!
+
     @IBOutlet weak var sumOfPrimeNumbers: UILabel!
+    
+    private enum EndSegue: String {
+        
+        case end = "EndThis"
+        
+        var identifier: String {
+            return rawValue
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         greetingsLabel.text = "Hi, \(TaskStore.shared.userName)!"
-        self.automaticallyAdjustsScrollViewInsets = false
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TaskViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,6 +96,15 @@ class TaskViewController: UIViewController {
             
             present(dialog, animated:  true, completion:  nil)
         }
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
+    @IBAction func tapToEnd(_ sender: Any) {
+        performSegue(withIdentifier: EndSegue.end.identifier, sender: nil)
         
     }
 }

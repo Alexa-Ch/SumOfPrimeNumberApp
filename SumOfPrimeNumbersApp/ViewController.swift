@@ -32,6 +32,5 @@ class ViewController: UIViewController {
         TaskStore.shared.userName = enterNameField.text!
         performSegue(withIdentifier: Segue.start.identifier, sender: nil)
     }
-
 }
 
